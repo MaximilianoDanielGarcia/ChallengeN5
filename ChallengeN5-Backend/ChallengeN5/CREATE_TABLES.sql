@@ -1,0 +1,15 @@
+
+
+CREATE TABLE TipoPermisos (
+	Id INT IDENTITY(1,1) PRIMARY KEY,
+	Descripcion VARCHAR(200)
+)
+
+CREATE TABLE Permisos (
+	
+	Id INT IDENTITY(1,1) PRIMARY KEY,
+	NombreEmpleado VARCHAR(100) NOT NULL,
+	ApellidoEmpleado VARCHAR(100) NOT NULL,
+	TipoPermiso INT NOT NULL FOREIGN KEY REFERENCES TipoPermisos(Id),
+	FechaPermiso DATETIME NOT NULL
+)
