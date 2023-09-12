@@ -21,8 +21,8 @@ namespace ChallengeN5.Interfaces
 
         Task<Permiso> QuitarPermisoAsync(int id);
 
-        Permiso ModificarPermiso(int id, Permiso permiso);
+        Permiso ModificarPermiso(Permiso permiso);
 
-        Task<Permiso> ModificarPermisoAsync (int id, Permiso permiso);
+        Task<Permiso> ModificarPermisoAsync (Permiso permiso);
     }
 }

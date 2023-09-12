@@ -1,15 +1,13 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
-namespace ChallengeN5.Models
+namespace ChallengeN5.Models;
+
+public class TipoPermiso
 {
-    public class TipoPermiso
-    {
-        [SwaggerSchema(ReadOnly = true)]
-        [Key]
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public string Descripcion { get; set; }
+    public string? Descripcion { get; set; }
 
-    }
+    public virtual ICollection<Permiso> Permisos { get; set; } = new List<Permiso>();
 }

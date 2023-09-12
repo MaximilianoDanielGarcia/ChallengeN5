@@ -10,7 +10,8 @@ namespace ChallengeN5.Models.DTOs
 
         public string ApellidoEmpleado { get; set; }
 
-        public DateTime FechaPermiso { get; set; }
+        [SwaggerSchema(ReadOnly = true)]
+        public DateTime FechaPermiso { get; set; } = DateTime.Now;
 
         public int TipoPermisoId { get; set; }
 

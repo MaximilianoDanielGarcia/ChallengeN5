@@ -1,21 +1,36 @@
+using AutoMapper;
 using ChallengeN5.Context;
 using ChallengeN5.Interfaces;
 using ChallengeN5.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+using System.Text.Json.Serialization;
+using ChallengeN5.Models.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    }); ;
 
-builder.Services.AddDbContext<N5DbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ChallengeN5Context>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IN5DbContext>(provider => provider.GetService<N5DbContext>());
+builder.Services.AddScoped<IChallengeN5Context>(provider => provider.GetService<ChallengeN5Context>());
 
 builder.Services.AddTransient<IPermisosService, PermisosService>();
 builder.Services.AddTransient<ITipoPermisosService, TiposPermisoService>();
+
+var mapperConfiguration = new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile<MappingProfile>();
+});
+var mapper = mapperConfiguration.CreateMapper();
+
+builder.Services.AddSingleton(mapper);
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

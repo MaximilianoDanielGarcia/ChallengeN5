@@ -1,7 +1,9 @@
-﻿using ChallengeN5.Interfaces;
+﻿using AutoMapper;
+using ChallengeN5.Interfaces;
 using ChallengeN5.Models;
 using ChallengeN5.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChallengeN5.Controllers
 {
@@ -10,9 +12,11 @@ namespace ChallengeN5.Controllers
     public class PermisosController : Controller
     {
         private readonly IPermisosService _permisosService;
-        public PermisosController(IPermisosService permisosService)
+        private readonly IMapper _mapper;
+        public PermisosController(IPermisosService permisosService, IMapper mapper)
         {
             _permisosService = permisosService;
+            _mapper = mapper;
         }
 
         [HttpGet("GetPermisos")]
@@ -21,7 +25,10 @@ namespace ChallengeN5.Controllers
             try
             {
                 var response = _permisosService.GetPermisos();
-                return Ok(response);
+
+                var listPermisos = _mapper.Map<IEnumerable<PermisoDTO>>(response);
+
+                return Ok(listPermisos);
             }
             catch (Exception ex)
             {
@@ -36,7 +43,10 @@ namespace ChallengeN5.Controllers
             try
             {
                 var response = await _permisosService.GetPermisosAsync();
-                return Ok(response);
+
+                var listPermisos = _mapper.Map<IEnumerable<PermisoDTO>>(response);
+
+                return Ok(listPermisos);
             }
             catch (Exception ex)
             {
@@ -52,7 +62,15 @@ namespace ChallengeN5.Controllers
             try
             {
                 var response = _permisosService.GetPermisoId(id);
-                return response != null ? Ok(response) : NotFound();
+
+                if (response == null)
+                {
+                    return NotFound();
+                }
+
+                var permisoDTO = _mapper.Map<PermisoDTO>(response);
+
+                return Ok(permisoDTO);
             }
             catch (Exception ex)
             {
@@ -67,7 +85,16 @@ namespace ChallengeN5.Controllers
             try
             {
                 var response = await _permisosService.GetPermisoIdAsync(id);
-                return response != null ? Ok(response) : NotFound();
+
+                if (response == null)
+                {
+                    return NotFound();
+                }
+
+                var permisoDTO = _mapper.Map<PermisoDTO>(response);
+
+                return Ok(permisoDTO);
+
             }
             catch (Exception ex)
             {
@@ -77,16 +104,11 @@ namespace ChallengeN5.Controllers
         }
 
         [HttpPost("RegistrarPermiso")]
-        public IActionResult RegistrarPermiso(PermisoDTO _permiso)
+        public IActionResult RegistrarPermiso(PermisoDTO permisoDTO)
         {
             try
             {
-                Permiso permiso = new Permiso();
-
-                permiso.NombreEmpleado = _permiso.NombreEmpleado;
-                permiso.ApellidoEmpleado = _permiso.ApellidoEmpleado;
-                permiso.FechaPermiso = _permiso.FechaPermiso;
-                permiso.TipoPermisoId = _permiso.TipoPermisoId;
+                Permiso permiso = _mapper.Map<Permiso>(permisoDTO);
 
                 var response = _permisosService.RegistrarPermiso(permiso);
                 return Ok(response);
@@ -99,10 +121,12 @@ namespace ChallengeN5.Controllers
         }
 
         [HttpPost("RegistrarPermisoAsync")]
-        public async Task<IActionResult> RegistrarPermisoAsync(Permiso permiso)
+        public async Task<IActionResult> RegistrarPermisoAsync([FromBody] PermisoDTO permisoDTO)
         {
             try
             {
+                 Permiso permiso = _mapper.Map<Permiso>(permisoDTO);
+
                  var response = await _permisosService.RegistrarPermisoAsync(permiso);
                 return Ok(response);
             }
@@ -114,12 +138,19 @@ namespace ChallengeN5.Controllers
         }
 
         [HttpPatch("ModificarPermiso/{id}")]
-        public IActionResult ModificarPermiso(int id, Permiso permiso)
+        public IActionResult ModificarPermiso(int id, PermisoDTO permisoDTO)
         {
             try
             {
-                var response =  _permisosService.ModificarPermiso(id, permiso);
-                return response != null ? Ok(response) : NotFound();
+                Permiso permiso = _permisosService.GetPermisoId(id);
+
+                permiso.NombreEmpleado = permisoDTO.NombreEmpleado;
+                permiso.ApellidoEmpleado = permisoDTO.ApellidoEmpleado;
+                permiso.TipoPermiso = permisoDTO.TipoPermisoId;
+
+                _permisosService.ModificarPermiso(permiso);
+                return NoContent();
+
             }
             catch (Exception ex)
             {
@@ -128,12 +159,18 @@ namespace ChallengeN5.Controllers
         }
 
         [HttpPatch("ModificarPermisoAsync/{id}")]
-        public async Task<IActionResult> ModificarPermisoAsync(int id, Permiso permiso)
+        public async Task<IActionResult> ModificarPermisoAsync(int id, PermisoDTO permisoDTO)
         {
             try
             {
-                var response = await _permisosService.ModificarPermisoAsync(id, permiso);
-                return response != null ? Ok(response) : NotFound();
+                Permiso permiso =await _permisosService.GetPermisoIdAsync(id);
+
+                permiso.NombreEmpleado = permisoDTO.NombreEmpleado;
+                permiso.ApellidoEmpleado = permisoDTO.ApellidoEmpleado;
+                permiso.TipoPermiso = permisoDTO.TipoPermisoId;
+
+                await _permisosService.ModificarPermisoAsync(permiso);
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -147,7 +184,7 @@ namespace ChallengeN5.Controllers
             try
             {
                 var response = _permisosService.QuitarPermiso(id);
-                return response != null ? Ok(response) : NotFound();
+                return response != null ? NoContent() : NotFound();
             }
             catch (Exception ex)
             {
@@ -161,7 +198,7 @@ namespace ChallengeN5.Controllers
             try
             {
                 var response = await _permisosService.QuitarPermisoAsync(id);
-                return response != null ? Ok(response) : NotFound();
+                return response != null ? NoContent() : NotFound();
             }
             catch (Exception ex)
             {

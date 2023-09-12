@@ -1,5 +1,4 @@
 ﻿using ChallengeN5.Models;
-using ChallengeN5.Models.DTOs;
 
 namespace ChallengeN5.Interfaces
 {
@@ -13,7 +12,7 @@ namespace ChallengeN5.Interfaces
 
         Task<TipoPermiso> GetTipoPermisoIdAsync(int id);
 
-        TipoPermiso RegistrarTipoPermiso(TipoPermisoDTO permiso);
+        TipoPermiso RegistrarTipoPermiso(TipoPermiso permiso);
 
         Task<TipoPermiso> RegistrarTipoPermisoAsync(TipoPermiso permiso);
 
@@ -21,8 +20,8 @@ namespace ChallengeN5.Interfaces
 
         Task<TipoPermiso> QuitarTipoPermisoAsync(int id);
 
-        TipoPermiso ModificarTipoPermiso(int id, TipoPermiso permiso);
+        TipoPermiso ModificarTipoPermiso(TipoPermiso permiso);
 
-        Task<TipoPermiso> ModificarTipoPermisoAsync (int id, TipoPermiso permiso);
+        Task<TipoPermiso> ModificarTipoPermisoAsync (TipoPermiso permiso);
     }
 }

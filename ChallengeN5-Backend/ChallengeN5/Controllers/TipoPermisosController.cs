@@ -1,4 +1,5 @@
-﻿using ChallengeN5.Interfaces;
+﻿using AutoMapper;
+using ChallengeN5.Interfaces;
 using ChallengeN5.Models;
 using ChallengeN5.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,11 @@ namespace ChallengeN5.Controllers
     public class TipoPermisosController : Controller
     {
         private readonly ITipoPermisosService _tiposPermisoService;
-        public TipoPermisosController(ITipoPermisosService tiposPermisoService)
+        private readonly IMapper _mapper;
+        public TipoPermisosController(ITipoPermisosService tiposPermisoService, IMapper mapper)
         {
             _tiposPermisoService = tiposPermisoService;
+            _mapper = mapper;
         }
 
         [HttpGet("GetTiposPermiso")]
@@ -21,7 +24,10 @@ namespace ChallengeN5.Controllers
             try
             {
                 var response = _tiposPermisoService.GetTiposPermiso();
-                return Ok(response);
+
+                var listTiposPermiso = _mapper.Map<IEnumerable<TipoPermisoDTO>>(response);
+                
+                return Ok(listTiposPermiso);
             }
             catch (Exception ex)
             {
@@ -36,7 +42,10 @@ namespace ChallengeN5.Controllers
             try
             {
                 var response = await _tiposPermisoService.GetTiposPermisoAsync();
-                return Ok(response);
+
+                var listTiposPermiso = _mapper.Map<IEnumerable<TipoPermisoDTO>>(response);
+
+                return Ok(listTiposPermiso);
             }
             catch (Exception ex)
             {
@@ -52,7 +61,15 @@ namespace ChallengeN5.Controllers
             try
             {
                 var response = _tiposPermisoService.GetTipoPermisoId(id);
-                return response != null ? Ok(response) : NotFound();
+
+                if (response == null)
+                {
+                    return NotFound();
+                }
+
+                var tipoPermisoDTO = _mapper.Map<TipoPermisoDTO>(response);
+
+                return Ok(tipoPermisoDTO);
             }
             catch (Exception ex)
             {
@@ -67,7 +84,15 @@ namespace ChallengeN5.Controllers
             try
             {
                 var response = await _tiposPermisoService.GetTipoPermisoIdAsync(id);
-                return response != null ? Ok(response) : NotFound();
+
+                if (response == null)
+                {
+                    return NotFound();
+                }
+
+                var tipoPermisoDTO = _mapper.Map<TipoPermisoDTO>(response);
+
+                return Ok(tipoPermisoDTO);
             }
             catch (Exception ex)
             {
@@ -77,11 +102,14 @@ namespace ChallengeN5.Controllers
         }
 
         [HttpPost("RegistrarTipoPermiso")]
-        public IActionResult RegistrarTipoPermiso(TipoPermisoDTO tipoPermiso)
+        public IActionResult RegistrarTipoPermiso(TipoPermisoDTO tipoPermisoDTO)
         {
             try
             {
+                TipoPermiso tipoPermiso = _mapper.Map<TipoPermiso>(tipoPermisoDTO);
+
                 var response = _tiposPermisoService.RegistrarTipoPermiso(tipoPermiso);
+
                 return Ok(response);
             }
             catch (Exception ex)
@@ -92,11 +120,14 @@ namespace ChallengeN5.Controllers
         }
 
         [HttpPost("RegistrarTipoPermisoAsync")]
-        public async Task<IActionResult> RegistrarTipoPermisoAsync(TipoPermiso tipoPermiso)
+        public async Task<IActionResult> RegistrarTipoPermisoAsync(TipoPermisoDTO tipoPermisoDTO)
         {
             try
             {
-                 var response = await _tiposPermisoService.RegistrarTipoPermisoAsync(tipoPermiso);
+                TipoPermiso tipoPermiso = _mapper.Map<TipoPermiso>(tipoPermisoDTO);
+
+                var response = await _tiposPermisoService.RegistrarTipoPermisoAsync(tipoPermiso);
+
                 return Ok(response);
             }
             catch (Exception ex)
@@ -107,12 +138,17 @@ namespace ChallengeN5.Controllers
         }
 
         [HttpPatch("ModificarTipoPermiso/{id}")]
-        public IActionResult ModificarTipoPermiso(int id, TipoPermiso tipoPermiso)
+        public IActionResult ModificarTipoPermiso(int id, TipoPermisoDTO tipoPermisoDTO)
         {
             try
             {
-                var response =  _tiposPermisoService.ModificarTipoPermiso(id, tipoPermiso);
-                return response != null ? Ok(response) : NotFound();
+                TipoPermiso tipoPermiso = _tiposPermisoService.GetTipoPermisoId(id);
+
+                tipoPermiso.Descripcion = tipoPermisoDTO.Descripcion;
+
+                _tiposPermisoService.ModificarTipoPermiso(tipoPermiso);
+
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -121,12 +157,17 @@ namespace ChallengeN5.Controllers
         }
 
         [HttpPatch("ModificarTipoPermisoAsync/{id}")]
-        public async Task<IActionResult> ModificarTipoPermisoAsync(int id, TipoPermiso tipoPermiso)
+        public async Task<IActionResult> ModificarTipoPermisoAsync(int id, TipoPermisoDTO tipoPermisoDTO)
         {
             try
             {
-                var response = await _tiposPermisoService.ModificarTipoPermisoAsync(id, tipoPermiso);
-                return response != null ? Ok(response) : NotFound();
+                TipoPermiso tipoPermiso = await _tiposPermisoService.GetTipoPermisoIdAsync(id);
+
+                tipoPermiso.Descripcion = tipoPermisoDTO.Descripcion;
+
+                await _tiposPermisoService.ModificarTipoPermisoAsync(tipoPermiso);
+
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -140,7 +181,7 @@ namespace ChallengeN5.Controllers
             try
             {
                 var response = _tiposPermisoService.QuitarTipoPermiso(id);
-                return response != null ? Ok(response) : NotFound();
+                return response != null ? NoContent() : NotFound();
             }
             catch (Exception ex)
             {
@@ -154,7 +195,7 @@ namespace ChallengeN5.Controllers
             try
             {
                 var response = await _tiposPermisoService.QuitarTipoPermisoAsync(id);
-                return response != null ? Ok(response) : NotFound();
+                return response != null ? NoContent() : NotFound();
             }
             catch (Exception ex)
             {

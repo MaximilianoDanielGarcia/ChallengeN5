@@ -1,20 +1,19 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
+﻿using System;
+using System.Collections.Generic;
 
-namespace ChallengeN5.Models
+namespace ChallengeN5.Models;
+
+public class Permiso
 {
-    public class Permiso
-    {
-        [SwaggerSchema(ReadOnly = true)]
-        public int Id { get; set; }
-        public string NombreEmpleado { get; set; }
+    public int Id { get; set; }
 
-        public string ApellidoEmpleado { get; set; }
+    public string NombreEmpleado { get; set; } = null!;
 
-        public DateTime FechaPermiso { get; set; }
+    public string ApellidoEmpleado { get; set; } = null!;
 
-        public int TipoPermisoId { get; set; }
+    public int TipoPermiso { get; set; }
 
-        public virtual TipoPermiso TipoPermiso{ get; set; }
+    public DateTime FechaPermiso { get; set; }
 
-    }
+    public virtual TipoPermiso TipoPermisoNavigation { get; set; } = null!;
 }

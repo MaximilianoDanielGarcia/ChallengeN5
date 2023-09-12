@@ -7,66 +7,47 @@ namespace ChallengeN5.Services
 {
     public class TiposPermisoService : ITipoPermisosService
     {
-        private readonly IN5DbContext _N5DbContext;
+        private readonly IChallengeN5Context challengeN5Context;
 
-        public TiposPermisoService(IN5DbContext n5DbContext)
+        public TiposPermisoService(IChallengeN5Context _challengeN5Context)
         {
-            _N5DbContext = n5DbContext;
+            challengeN5Context = _challengeN5Context;
         }
 
         public TipoPermiso GetTipoPermisoId(int id)
         {
-            return _N5DbContext.TipoPermisos.Find(id);
+            return challengeN5Context.Set<TipoPermiso>().Single(p => p.Id == id);
         }
 
         public async Task<TipoPermiso> GetTipoPermisoIdAsync(int id)
         {
-            return await _N5DbContext.TipoPermisos.FindAsync(id);
+            return await challengeN5Context.Set<TipoPermiso>().SingleAsync(p => p.Id == id);
         }
 
         public IEnumerable<TipoPermiso> GetTiposPermiso()
         {
-            return _N5DbContext.TipoPermisos.ToList();
+            return challengeN5Context.Set<TipoPermiso>().ToList();
         }
 
         public async Task<IEnumerable<TipoPermiso>> GetTiposPermisoAsync()
         {
-            return await _N5DbContext.TipoPermisos.ToListAsync();
+            return await challengeN5Context.Set<TipoPermiso>().ToListAsync();
         }
 
-        public TipoPermiso ModificarTipoPermiso(int id, TipoPermiso tipoPermiso)
+        public TipoPermiso ModificarTipoPermiso(TipoPermiso tipoPermiso)
         {
-            TipoPermiso tipoPermisoDB = GetTipoPermisoId(id);
+            challengeN5Context.Entry(tipoPermiso).State = EntityState.Modified;
+            challengeN5Context.SaveChanges();
 
-            if (tipoPermisoDB == null)
-            {
-                return tipoPermisoDB;
-            }
-
-            tipoPermisoDB.Descripcion = tipoPermiso.Descripcion;      
-
-            _N5DbContext.Entry(tipoPermisoDB, EntityState.Modified);
-            _N5DbContext.SaveChanges();
-
-            return tipoPermisoDB;
-           
+            return tipoPermiso;
         }
 
-        public async Task<TipoPermiso> ModificarTipoPermisoAsync(int id, TipoPermiso tipoPermiso)
+        public async Task<TipoPermiso> ModificarTipoPermisoAsync(TipoPermiso tipoPermiso)
         {
-            TipoPermiso tipoPermisoDB = await GetTipoPermisoIdAsync(id);
+            challengeN5Context.Entry(tipoPermiso).State = EntityState.Modified;
+            await challengeN5Context.SaveChangesAsync();
 
-            if (tipoPermisoDB == null)
-            {
-                return tipoPermisoDB;
-            }
-
-            tipoPermisoDB.Descripcion = tipoPermiso.Descripcion;
-
-            _N5DbContext.Entry(tipoPermisoDB, EntityState.Modified);
-            await _N5DbContext.SaveChanges();
-
-            return tipoPermisoDB;
+            return tipoPermiso;
         }
 
         public TipoPermiso QuitarTipoPermiso(int id)
@@ -75,8 +56,8 @@ namespace ChallengeN5.Services
 
             if (tipoPermiso != null)
             {
-                _N5DbContext.TipoPermisos.Remove(tipoPermiso);
-                _N5DbContext.SaveChanges();
+                challengeN5Context.Set<TipoPermiso>().Remove(tipoPermiso);
+                challengeN5Context.SaveChanges();
             }
 
             return tipoPermiso;
@@ -88,28 +69,25 @@ namespace ChallengeN5.Services
 
             if (tipoPermiso != null)
             {
-                _N5DbContext.TipoPermisos.Remove(tipoPermiso);
-                await _N5DbContext.SaveChanges();
+                challengeN5Context.Set<TipoPermiso>().Remove(tipoPermiso);
+                await challengeN5Context.SaveChangesAsync();
             }
 
             return tipoPermiso;
         }
 
-        public TipoPermiso RegistrarTipoPermiso(TipoPermisoDTO tipoPermiso)
+        public TipoPermiso RegistrarTipoPermiso(TipoPermiso tipoPermiso)
         {
-            TipoPermiso tipoPermiso1 = new TipoPermiso();
-            tipoPermiso1.Descripcion = tipoPermiso.Descripcion;
+            challengeN5Context.Set<TipoPermiso>().Add(tipoPermiso);
+            challengeN5Context.SaveChanges();
 
-            _N5DbContext.TipoPermisos.Add(tipoPermiso1);
-            _N5DbContext.SaveChanges();
-
-            return tipoPermiso1;
+            return tipoPermiso;
         }
 
         public async Task<TipoPermiso> RegistrarTipoPermisoAsync(TipoPermiso tipoPermiso)
         {
-            _N5DbContext.TipoPermisos.Add(tipoPermiso);
-            await _N5DbContext.SaveChanges();
+            challengeN5Context.Set<TipoPermiso>().Add(tipoPermiso);
+            await challengeN5Context.SaveChangesAsync();
 
             return tipoPermiso;
         }
