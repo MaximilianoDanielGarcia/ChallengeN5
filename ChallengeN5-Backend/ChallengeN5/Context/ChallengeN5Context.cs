@@ -30,11 +30,6 @@ public class ChallengeN5Context : DbContext, IChallengeN5Context
         return base.Entry(entity);
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer("Server=.;Database=ChallengeN5;TrustServerCertificate=True;Integrated Security=True;ConnectRetryCount=0");
-    }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Permiso>(entity =>

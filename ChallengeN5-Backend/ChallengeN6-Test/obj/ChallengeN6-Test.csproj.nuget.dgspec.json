@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN6-Test\\ChallengeN6-Test.csproj": {}
+    "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN6-Test\\ChallengeN6-Test.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\ChallengeN5.csproj": {
+    "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\ChallengeN5.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\ChallengeN5.csproj",
+        "projectUniqueName": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\ChallengeN5.csproj",
         "projectName": "ChallengeN5",
-        "projectPath": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\ChallengeN5.csproj",
+        "projectPath": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\ChallengeN5.csproj",
         "packagesPath": "C:\\Users\\mdgarcia\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\obj\\",
+        "outputPath": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mdgarcia\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -100,14 +100,14 @@
         }
       }
     },
-    "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN6-Test\\ChallengeN6-Test.csproj": {
+    "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN6-Test\\ChallengeN6-Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN6-Test\\ChallengeN6-Test.csproj",
+        "projectUniqueName": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN6-Test\\ChallengeN6-Test.csproj",
         "projectName": "ChallengeN6-Test",
-        "projectPath": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN6-Test\\ChallengeN6-Test.csproj",
+        "projectPath": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN6-Test\\ChallengeN6-Test.csproj",
         "packagesPath": "C:\\Users\\mdgarcia\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN6-Test\\obj\\",
+        "outputPath": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN6-Test\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mdgarcia\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -124,8 +124,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\ChallengeN5.csproj": {
-                "projectPath": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\ChallengeN5.csproj"
+              "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\ChallengeN5.csproj": {
+                "projectPath": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\ChallengeN5.csproj"
               }
             }
           }

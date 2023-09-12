@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "b4BPF9OKMMXI6CD1CXkLuDR+FdRnv5vdcAbTO5ikpHyCw42rOg5NrS+NNsRLwdPpoDbyWkP1KKgFnsJ3knzKHw==",
+  "dgSpecHash": "Iq+4vsuWORMntTff7eyZE0ldYzb69OGyz7Vxk6BhMuiOr3QVyzJOEsVUz6Zfoe3VVsHEsHPfxEVUF90DPOf/JA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN6-Test\\ChallengeN6-Test.csproj",
+  "projectFilePath": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN6-Test\\ChallengeN6-Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mdgarcia\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\mdgarcia\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",

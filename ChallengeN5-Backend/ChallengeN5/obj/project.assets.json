@@ -4062,11 +4062,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\ChallengeN5.csproj",
+      "projectUniqueName": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\ChallengeN5.csproj",
       "projectName": "ChallengeN5",
-      "projectPath": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\ChallengeN5.csproj",
+      "projectPath": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\ChallengeN5.csproj",
       "packagesPath": "C:\\Users\\mdgarcia\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\obj\\",
+      "outputPath": "C:\\Users\\mdgarcia\\Desktop\\ChallengeN5\\ChallengeN5\\ChallengeN5-Backend\\ChallengeN5\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\mdgarcia\\AppData\\Roaming\\NuGet\\NuGet.Config",

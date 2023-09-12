@@ -1,9 +1,15 @@
+CREATE DATABASE ChallengeN5
+GO
 
+USE ChallengeN5
+GO
 
 CREATE TABLE TipoPermisos (
 	Id INT IDENTITY(1,1) PRIMARY KEY,
 	Descripcion VARCHAR(200)
 )
+
+GO
 
 CREATE TABLE Permisos (
 	
