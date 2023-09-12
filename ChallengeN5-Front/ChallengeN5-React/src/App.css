@@ -33,10 +33,62 @@
   }
 }
 
-.card {
-  padding: 2em;
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin: 0px;
 }
 
-.read-the-docs {
-  color: #888;
+.btn {
+  padding: 5px;
+}
+
+.btn-editar {
+  background: yellow;
+  border-radius: 5px;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 55px;
+  width: 100%;
+}
+
+.btn-submit {
+  background: green;
+  color: whitesmoke;
+  width: 100%;
+  height: 40px;
+  border-radius: 20px;
+  padding: 0;
+}
+
+.btn-submit:hover {
+  background: #19ff24;
+  color: #242424;
+  border: none;
+}
+
+.btn-back {
+  border: 1px solid lightgray;
+  width: 100%;
+  height: 34px;
+  border-radius: 20px;
+  color: lightgray;
+  padding-top: 6px;
+}
+
+.btn-back:hover {
+  background: lightgray;
+  color: #242424;
+}
+
+.form-select {
+  width: 200px;
 }
