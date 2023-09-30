@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace ChallengeN5.Context;
 
-public class ChallengeN5Context : DbContext, IChallengeN5Context
+public class ChallengeN5Context : DbContext
 {
     public ChallengeN5Context()
     {
@@ -19,16 +19,6 @@ public class ChallengeN5Context : DbContext, IChallengeN5Context
     public virtual DbSet<Permiso> Permisos { get; set; }
 
     public virtual DbSet<TipoPermiso> TipoPermisos { get; set; }
-
-    public async Task<int> SaveChangesAsync()
-    {
-        return await base.SaveChangesAsync();
-    }
-
-    public new EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
-    {
-        return base.Entry(entity);
-    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

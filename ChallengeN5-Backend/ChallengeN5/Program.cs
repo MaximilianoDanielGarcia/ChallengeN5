@@ -5,6 +5,8 @@ using ChallengeN5.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using ChallengeN5.Models.Mappings;
+using ChallengeN5.UnitOfWork;
+using ChallengeN5.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,10 +20,11 @@ builder.Services.AddControllers()
 
 builder.Services.AddDbContext<ChallengeN5Context>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IChallengeN5Context>(provider => provider.GetService<ChallengeN5Context>());
-
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IPermisosService, PermisosService>();
 builder.Services.AddTransient<ITipoPermisosService, TiposPermisoService>();
+builder.Services.AddTransient<ITiposPermisoRepository, TiposPermisoRepository>();
+builder.Services.AddTransient<IPermisosRepository, PermisosRepository>();
 
 var mapperConfiguration = new MapperConfiguration(cfg =>
 {

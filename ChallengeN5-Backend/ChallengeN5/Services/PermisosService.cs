@@ -1,50 +1,51 @@
 ﻿using ChallengeN5.Interfaces;
 using ChallengeN5.Models;
+using ChallengeN5.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChallengeN5.Services
 {
     public class PermisosService : IPermisosService
     {
-        private readonly IChallengeN5Context challengeN5Context;
+        IUnitOfWork _work;
 
-        public PermisosService(IChallengeN5Context _challengeN5Context)
+        public PermisosService(IUnitOfWork work)
         {
-            challengeN5Context = _challengeN5Context;
+            _work = work;
         }
 
         public Permiso GetPermisoId(int id)
         {
-            return challengeN5Context.Set<Permiso>().Include(p => p.TipoPermisoNavigation).Single(p => p.Id == id);
+            return _work.Permisos.Get(p => p.Id == id);
         }
 
         public async Task<Permiso> GetPermisoIdAsync(int id)
         {
-            return await challengeN5Context.Set<Permiso>().Include(p => p.TipoPermisoNavigation).SingleAsync(p => p.Id == id);
+            return await _work.Permisos.GetAsync(p => p.Id == id);
         }
 
         public IEnumerable<Permiso> GetPermisos()
         {
-            return challengeN5Context.Set<Permiso>().Include(p => p.TipoPermisoNavigation).ToList();
+            return _work.Permisos.GetAll();
         }
 
         public async Task<IEnumerable<Permiso>> GetPermisosAsync()
         {
-            return await challengeN5Context.Set<Permiso>().Include(p => p.TipoPermisoNavigation).ToListAsync();
+            return await _work.Permisos.GetAllAsync();
         }
 
         public Permiso ModificarPermiso(Permiso permiso)
         {
-            challengeN5Context.Entry(permiso).State = EntityState.Modified;
-            challengeN5Context.SaveChanges();
+            _work.Permisos.Update(permiso);
+            _work.Commit();
 
             return permiso;
         }
 
         public async Task<Permiso> ModificarPermisoAsync(Permiso permiso)
         {
-            challengeN5Context.Entry(permiso).State = EntityState.Modified;
-            await challengeN5Context.SaveChangesAsync();
+            _work.Permisos.Update(permiso);
+            await _work.CommitAsync();
 
             return permiso;
         }
@@ -55,8 +56,8 @@ namespace ChallengeN5.Services
 
             if (permiso != null)
             {
-                challengeN5Context.Set<Permiso>().Remove(permiso);
-                challengeN5Context.SaveChanges();
+                _work.Permisos.Remove(permiso);
+                _work.Commit();
             }
 
             return permiso;
@@ -68,8 +69,8 @@ namespace ChallengeN5.Services
 
             if (permiso != null)
             {
-                challengeN5Context.Set<Permiso>().Remove(permiso);
-                await challengeN5Context.SaveChangesAsync();
+                _work.Permisos.Remove(permiso);
+                await _work.CommitAsync();
             }
 
             return permiso;
@@ -77,16 +78,16 @@ namespace ChallengeN5.Services
 
         public Permiso RegistrarPermiso(Permiso permiso)
         {
-            challengeN5Context.Set<Permiso>().Add(permiso);
-            challengeN5Context.SaveChanges();
+            _work.Permisos.Add(permiso);
+            _work.Commit();
 
             return permiso;
         }
 
         public async Task<Permiso> RegistrarPermisoAsync(Permiso permiso)
         {
-            challengeN5Context.Set<Permiso>().Add(permiso);
-            await challengeN5Context.SaveChangesAsync();
+            await _work.Permisos.AddAsync(permiso);
+            await _work.CommitAsync();
 
             return permiso;
         }
